@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ur-Fascism: Сравнительный анализ — Россия · США · Германия</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========== FOUNDATIONS ========== */
+:root {
+  --bg: #08080d;
+  --bg-elevated: #0e0e16;
+  --bg-card: #13131d;
+  --bg-card-hover: #1a1a28;
+  --text: #e8e6e3;
+  --text-dim: #7a7888;
+  --text-muted: #4a4858;
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.12);
+
+  /* Country accents */
+  --ru: #c73030;
+  --ru-soft: rgba(199, 48, 48, 0.12);
+  --ru-glow: rgba(199, 48, 48, 0.25);
+  --us: #2563eb;
+  --us-soft: rgba(37, 99, 235, 0.12);
+  --us-glow: rgba(37, 99, 235, 0.25);
+  --de: #d4a017;
+  --de-soft: rgba(212, 160, 23, 0.10);
+  --de-glow: rgba(212, 160, 23, 0.20);
+
+  /* Severity */
+  --red: #c73030;
+  --red-soft: rgba(199, 48, 48, 0.15);
+  --orange: #c97a2e;
+  --orange-soft: rgba(201, 122, 46, 0.15);
+  --green: #3a8a5c;
+  --green-soft: rgba(58, 138, 92, 0.15);
+  --gold: #c9a84c;
+  --gold-soft: rgba(201, 168, 76, 0.12);
+
+  /* Active country (set via JS) */
+  --accent: var(--ru);
+  --accent-soft: var(--ru-soft);
+  --accent-glow: var(--ru-glow);
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* ========== GRAIN OVERLAY ========== */
+.grain {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9999; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ========== NAVIGATION ========== */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8, 8, 13, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  padding: 0 24px;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  margin-right: auto;
+  white-space: nowrap;
+}
+
+.nav-brand em {
+  font-style: italic;
+  color: var(--text);
+  margin-right: 6px;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 0;
+  list-style: none;
+}
+
+.nav-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: var(--text-dim);
+  transition: color 0.3s ease;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+
+.nav-tab:hover {
+  color: var(--text);
+}
+
+.nav-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background: transparent;
+  border-radius: 2px 2px 0 0;
+  transition: background 0.3s ease;
+}
+
+.nav-tab.active::after {
+  background: var(--tab-color, var(--text));
+}
+
+.nav-tab.active {
+  color: var(--text);
+}
+
+.nav-tab .tab-score {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+.nav-tab.active .tab-score {
+  opacity: 1;
+  color: var(--tab-color);
+}
+
+.tab-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ========== HERO ========== */
+.hero {
+  position: relative;
+  padding: 80px 40px 60px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+  opacity: 0.2;
+  pointer-events: none;
+  transition: background 0.6s ease;
+}
+
+.hero-overline {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(32px, 5vw, 60px);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.hero h1 .accent {
+  color: var(--accent);
+  font-style: italic;
+  transition: color 0.4s ease;
+}
+
+.hero-subtitle {
+  color: var(--text-dim);
+  font-size: 16px;
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.hero-meta {
+  color: var(--text-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-top: 28px;
+}
+
+/* ========== PANELS ========== */
+.panel {
+  display: none;
+  animation: panelIn 0.4s ease;
+}
+
+.panel.active {
+  display: block;
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== OVERVIEW PANEL ========== */
+.overview {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 100px;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+.country-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
+
+.country-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.country-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.country-card[data-country="russia"]::before { background: var(--ru); }
+.country-card[data-country="usa"]::before { background: var(--us); }
+.country-card[data-country="germany"]::before { background: var(--de); }
+
+.country-card-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.country-card[data-country="russia"] .country-card-name { color: var(--ru); }
+.country-card[data-country="usa"] .country-card-name { color: var(--us); }
+.country-card[data-country="germany"] .country-card-name { color: var(--de); }
+
+.country-card-period {
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+
+.country-stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.country-stat {
+  flex: 1;
+  text-align: center;
+  padding: 12px 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+}
+
+.country-stat-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.country-stat-num.red { color: var(--red); }
+.country-stat-num.orange { color: var(--orange); }
+.country-stat-num.green { color: var(--green); }
+
+.country-stat-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.country-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.04);
+  overflow: hidden;
+  display: flex;
+  gap: 2px;
+}
+
+.country-bar-seg {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.country-bar-seg.full { background: var(--red); }
+.country-bar-seg.partial { background: var(--orange); }
+.country-bar-seg.weak { background: var(--green); }
+
+.country-card-cta {
+  display: block;
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+}
+
+.country-card:hover .country-card-cta {
+  color: var(--text-dim);
+}
+
+/* Comparative heatmap */
+.heatmap-section {
+  margin-top: 16px;
+}
+
+.heatmap-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.heatmap-subtitle {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 28px;
+}
+
+.heatmap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.heatmap-header {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px 100px;
+  gap: 0;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+.heatmap-header span:not(:first-child) {
+  text-align: center;
+}
+
+.heatmap-row {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px 100px;
+  gap: 0;
+  padding: 12px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  font-size: 14px;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.heatmap-row:last-child { border-bottom: none; }
+.heatmap-row:hover { background: rgba(255,255,255,0.02); }
+
+.heatmap-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.heatmap-label small {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.heatmap-cell {
+  text-align: center;
+}
+
+.heatmap-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.heatmap-row:hover .heatmap-dot {
+  transform: scale(1.25);
+}
+
+.heatmap-dot.full { background: var(--red); box-shadow: 0 0 8px rgba(199, 48, 48, 0.3); }
+.heatmap-dot.partial { background: var(--orange); box-shadow: 0 0 8px rgba(201, 122, 46, 0.2); }
+.heatmap-dot.weak { background: var(--green); box-shadow: 0 0 8px rgba(58, 138, 92, 0.15); }
+
+/* ========== COUNTRY PANEL ========== */
+.country-panel {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+.panel-intro {
+  padding: 40px 0 32px;
+}
+
+.panel-intro-overline {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.panel-intro h2 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(24px, 4vw, 40px);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.panel-intro h2 .accent {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.context-note {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  padding: 18px 22px;
+  margin: 20px 0 24px;
+  max-width: 850px;
+  font-size: 14px;
+  line-height: 1.7;
+  border-radius: 0 8px 8px 0;
+  transition: background 0.4s, border-color 0.4s;
+}
+
+.context-note strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.film-embed {
+  max-width: 850px;
+  margin: 0 0 24px;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.film-embed iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #000;
+}
+
+.legend {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  margin: 24px 0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dim);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-dot.full { background: var(--red); }
+.legend-dot.partial { background: var(--orange); }
+.legend-dot.weak { background: var(--green); }
+
+.stats-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 0 0 32px;
+}
+
+.stat {
+  text-align: center;
+  flex: 1;
+  min-width: 90px;
+  padding: 18px 16px;
+  border-radius: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+}
+
+.stat-num.red { color: var(--red); }
+.stat-num.orange { color: var(--orange); }
+.stat-num.green { color: var(--green); }
+
+.stat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* ========== CARDS ========== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+}
+
+.card-header {
+  display: grid;
+  grid-template-columns: 44px 1fr auto 24px;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.card-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--accent);
+  text-align: center;
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  flex-shrink: 0;
+  transition: background 0.4s, color 0.4s;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.card-title small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 2px;
+  letter-spacing: 0.3px;
+}
+
+.match-badge {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.match-full { background: var(--red-soft); color: var(--red); }
+.match-partial { background: var(--orange-soft); color: var(--orange); }
+.match-weak { background: var(--green-soft); color: var(--green); }
+
+.card-chevron {
+  color: var(--text-muted);
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.card.open .card-chevron {
+  transform: rotate(90deg);
+}
+
+.card-body {
+  display: none;
+  padding: 0 22px 22px 82px;
+}
+
+.card.open .card-body { display: block; }
+.card.open { border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.comp-col {
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.comp-col.eco {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
+}
+
+.comp-col.country {
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.comp-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.comp-col.country .comp-label {
+  color: var(--accent);
+}
+
+.fact {
+  color: var(--gold);
+  font-weight: 400;
+}
+
+/* ========== SUMMARY ========== */
+.summary-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 32px;
+  margin-top: 40px;
+}
+
+.summary-box h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--accent);
+}
+
+.summary-box p {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.summary-box p strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.source-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 40px;
+  line-height: 1.7;
+}
+
+/* ========== OVERVIEW ABOUT ========== */
+.about-section {
+  margin-top: 48px;
+  padding: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.about-section h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.about-section p {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.about-section p strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .overview-grid { grid-template-columns: 1fr; }
+  .heatmap-header, .heatmap-row {
+    grid-template-columns: 1fr 70px 70px 70px;
+  }
+}
+
+@media (max-width: 700px) {
+  .nav-brand { display: none; }
+  .nav-inner { justify-content: center; }
+  .nav-tab { padding: 14px 12px; font-size: 12px; gap: 6px; }
+  .nav-tab .tab-score { display: none; }
+  .hero { padding: 60px 20px 40px; }
+  .hero-subtitle { font-size: 14px; }
+  .comparison-grid { grid-template-columns: 1fr; }
+  .card-header { grid-template-columns: 36px 1fr auto; gap: 10px; padding: 14px 16px; }
+  .card-header .card-chevron { display: none; }
+  .card-body { padding-left: 16px; padding-right: 16px; }
+  .match-badge { grid-column: 2 / -1; }
+  .card-num { width: 36px; height: 36px; line-height: 36px; font-size: 16px; }
+  .panel-intro { padding: 28px 0 20px; }
+  .heatmap-header, .heatmap-row {
+    grid-template-columns: 1fr 56px 56px 56px;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+  .heatmap-header { font-size: 8px; letter-spacing: 1px; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- ========== NAVIGATION ========== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><em>Ur-Fascism</em>&nbsp;/ Эко 2026</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="overview" style="--tab-color: var(--text)">
+        Обзор
+      </button>
+      <button class="nav-tab" data-tab="russia" style="--tab-color: var(--ru)">
+        <span class="tab-dot" style="background:var(--ru)"></span>
+        Россия
+        <span class="tab-score">11/14</span>
+      </button>
+      <button class="nav-tab" data-tab="usa" style="--tab-color: var(--us)">
+        <span class="tab-dot" style="background:var(--us)"></span>
+        США
+        <span class="tab-score">7/14</span>
+      </button>
+      <button class="nav-tab" data-tab="germany" style="--tab-color: var(--de)">
+        <span class="tab-dot" style="background:var(--de)"></span>
+        Германия
+        <span class="tab-score">2/14</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<header class="hero">
+  <div class="hero-overline">Исследование · Апрель 2026</div>
+  <h1>14 признаков <span class="accent">Ur-Fascism</span></h1>
+  <p class="hero-subtitle">Сравнительный анализ 14 признаков «вечного фашизма» из эссе Умберто Эко (1995) — Россия, США и Германия в 2025–2026 годах</p>
+</header>
+
+<!-- ========== OVERVIEW PANEL ========== -->
+<div class="panel active" id="panel-overview">
+  <div class="overview">
+
+    <div class="overview-grid">
+      <div class="country-card" data-country="russia" onclick="switchTab('russia')">
+        <div class="country-card-name">Россия</div>
+        <div class="country-card-period">2022 – 2026</div>
+        <div class="country-stats">
+          <div class="country-stat"><div class="country-stat-num red">11</div><div class="country-stat-label">Выражен.</div></div>
+          <div class="country-stat"><div class="country-stat-num orange">2</div><div class="country-stat-label">Частичн.</div></div>
+          <div class="country-stat"><div class="country-stat-num green">1</div><div class="country-stat-label">Слабых</div></div>
+        </div>
+        <div class="country-bar">
+          <div class="country-bar-seg full" style="width:78.6%"></div>
+          <div class="country-bar-seg partial" style="width:14.3%"></div>
+          <div class="country-bar-seg weak" style="width:7.1%"></div>
+        </div>
+        <span class="country-card-cta">Подробный анализ &rarr;</span>
+      </div>
+
+      <div class="country-card" data-country="usa" onclick="switchTab('usa')">
+        <div class="country-card-name">США</div>
+        <div class="country-card-period">2025 – 2026 (Трамп 2.0)</div>
+        <div class="country-stats">
+          <div class="country-stat"><div class="country-stat-num red">7</div><div class="country-stat-label">Выражен.</div></div>
+          <div class="country-stat"><div class="country-stat-num orange">5</div><div class="country-stat-label">Частичн.</div></div>
+          <div class="country-stat"><div class="country-stat-num green">2</div><div class="country-stat-label">Слабых</div></div>
+        </div>
+        <div class="country-bar">
+          <div class="country-bar-seg full" style="width:50%"></div>
+          <div class="country-bar-seg partial" style="width:35.7%"></div>
+          <div class="country-bar-seg weak" style="width:14.3%"></div>
+        </div>
+        <span class="country-card-cta">Подробный анализ &rarr;</span>
+      </div>
+
+      <div class="country-card" data-country="germany" onclick="switchTab('germany')">
+        <div class="country-card-name">Германия</div>
+        <div class="country-card-period">2025 – 2026 (AfD / Мерц)</div>
+        <div class="country-stats">
+          <div class="country-stat"><div class="country-stat-num red">2</div><div class="country-stat-label">Выражен.</div></div>
+          <div class="country-stat"><div class="country-stat-num orange">6</div><div class="country-stat-label">Частичн.</div></div>
+          <div class="country-stat"><div class="country-stat-num green">6</div><div class="country-stat-label">Слабых</div></div>
+        </div>
+        <div class="country-bar">
+          <div class="country-bar-seg full" style="width:14.3%"></div>
+          <div class="country-bar-seg partial" style="width:42.8%"></div>
+          <div class="country-bar-seg weak" style="width:42.8%"></div>
+        </div>
+        <span class="country-card-cta">Подробный анализ &rarr;</span>
+      </div>
+    </div>
+
+    <!-- Heatmap -->
+    <div class="heatmap-section">
+      <div class="heatmap-title">Сравнительная таблица</div>
+      <div class="heatmap-subtitle">Все 14 признаков Эко по трём странам</div>
+
+      <div class="heatmap" id="heatmap"></div>
+    </div>
+
+    <div class="about-section">
+      <h2>Об этом исследовании</h2>
+      <p>В 1995 году Умберто Эко опубликовал эссе <strong>«Ur-Fascism» («Вечный фашизм»)</strong>, в котором выделил 14 типологических признаков фашизма. Эко подчёркивал: «достаточно наличия одного из них, чтобы вокруг этого признака начал конденсироваться фашизм». Признаки не обязаны присутствовать все одновременно — фашизм каждый раз принимает новую форму.</p>
+      <p>Данное исследование применяет эти 14 признаков к трём странам — <strong>России</strong>, <strong>США</strong> и <strong>Германии</strong> — по состоянию на 2025–2026 годы. Каждый признак оценивается как «выраженный», «частичный» или «слабый» на основе задокументированных фактов из открытых источников.</p>
+      <p>Это не означает тождественности сравниваемых стран с историческим фашизмом. Но концентрация признаков — важный индикатор направления движения.</p>
+    </div>
+
+    <div class="source-note" style="margin-top: 48px;">
+      Источники: Umberto Eco «Ur-Fascism» (1995) · CIVICUS · HRW · CSIS · CEPA · The Insider · Bright Line Watch · CFR · BfV · Carnegie Endowment<br>
+      Данные актуальны на апрель 2026 года
+    </div>
+  </div>
+</div>
+
+<!-- ========== RUSSIA PANEL ========== -->
+<div class="panel" id="panel-russia">
+  <div class="country-panel">
+    <div class="panel-intro">
+      <div class="panel-intro-overline">Россия · 2022–2026</div>
+      <h2>14 признаков <span class="accent">Ur-Fascism</span><br>vs Россия</h2>
+      <div class="context-note">
+        <strong>«Господин Никто против Путина»</strong> (2025) — оскароносный документальный фильм Павла Таланкина, учителя из Карабаша (Челябинская область), тайно снимавшего трансформацию своей школы в инструмент военной пропаганды. Фильм стал одним из главных документальных свидетельств системной индоктринации российских школьников, показав изнутри работу «Разговоров о важном», Юнармии и милитаризации образования.
+      </div>
+      <div class="film-embed">
+        <iframe title="Ein Nobody gegen Putin" allowfullscreen="true" src="https://www.arte.tv/embeds/de/116712-000-A?autoplay=true&mute=0"></iframe>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot full"></div> Выраженное совпадение</div>
+        <div class="legend-item"><div class="legend-dot partial"></div> Частичное совпадение</div>
+        <div class="legend-item"><div class="legend-dot weak"></div> Слабое / неоднозначное</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num red">11</div><div class="stat-label">Выраженных</div></div>
+        <div class="stat"><div class="stat-num orange">2</div><div class="stat-label">Частичных</div></div>
+        <div class="stat"><div class="stat-num green">1</div><div class="stat-label">Слабых</div></div>
+      </div>
+    </div>
+    <div id="cards-russia"></div>
+    <div class="summary-box">
+      <h2>Выводы</h2>
+      <p>Из 14 признаков «вечного фашизма» Эко в современной России <strong>11 выражены отчётливо, 2 — частично, 1 — слабо</strong>. Это не означает тождественности с историческим фашизмом Муссолини или нацизмом Гитлера — Эко специально подчёркивал, что фашизм каждый раз принимает новую форму. Но концентрация признаков говорит о системном характере явления.</p>
+      <p>Особенно показательна <strong>милитаризация детства</strong>: «Юнармия» с 1,8 млн членов, обязательные «Разговоры о важном» с 1-го класса (а с 2025 — и в детских садах), 66 млрд руб. бюджета на «патриотическое воспитание» в 2025 году, «Зарница 2.0» с 3 млн участников — всё это создаёт систему, которую исследователи из Yale Humanitarian Research Lab называют «масштабнее советской пионерии и интенсивнее гитлерюгенда».</p>
+      <p>Фильм <strong>«Господин Никто против Путина»</strong> стал визуальным доказательством того, как эта система работает на уровне конкретной школы: от поднятия флага по понедельникам до визитов «участников СВО» к детям и переписанных учебников истории.</p>
+    </div>
+    <div class="source-note">
+      Источники: Umberto Eco «Ur-Fascism» (1995) · The Moscow Times · CSIS · CEPA · The Insider · Posle Media · Радио Свобода · Wikipedia · BBC · ООН · LSM.lv<br>
+      Данные актуальны на апрель 2026 года
+    </div>
+  </div>
+</div>
+
+<!-- ========== USA PANEL ========== -->
+<div class="panel" id="panel-usa">
+  <div class="country-panel">
+    <div class="panel-intro">
+      <div class="panel-intro-overline">США · 2025–2026</div>
+      <h2>14 признаков <span class="accent">Ur-Fascism</span><br>vs США</h2>
+      <div class="context-note">
+        <strong>Важный контекст.</strong> США остаются страной с функционирующими (хотя и находящимися под давлением) институтами: независимые суды блокируют указы, пресса продолжает работу, выборы проводятся. Организация CIVICUS понизила рейтинг гражданских свобод США с «narrowed» до «obstructed» в декабре 2025 — но это не «closed». Опрос 500+ политологов (Bright Line Watch, 2025) показал, что большинство считает США движущимися к «конкурентному авторитаризму» — форме, где выборы есть, но поле для оппозиции сужается.
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot full"></div> Выраженное совпадение</div>
+        <div class="legend-item"><div class="legend-dot partial"></div> Частичное совпадение</div>
+        <div class="legend-item"><div class="legend-dot weak"></div> Слабое / неоднозначное</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num red">7</div><div class="stat-label">Выраженных</div></div>
+        <div class="stat"><div class="stat-num orange">5</div><div class="stat-label">Частичных</div></div>
+        <div class="stat"><div class="stat-num green">2</div><div class="stat-label">Слабых</div></div>
+      </div>
+    </div>
+    <div id="cards-usa"></div>
+    <div class="summary-box">
+      <h2>Выводы</h2>
+      <p>Из 14 признаков Эко в США при Трампе 2.0 <strong>7 выражены отчётливо, 5 — частично, 2 — слабо</strong>. Это меньше, чем у России (11/2/1), но для устоявшейся либеральной демократии — тревожная концентрация.</p>
+      <p><strong>Главное отличие от России:</strong> в США работают институциональные противовесы. Суды блокируют указы (финансирование NPR признано неконституционным, депортации в третьи страны остановлены). Пресса функционирует, хотя под беспрецедентным давлением. Выборы проводятся. Протесты легальны. Именно поэтому политологи говорят о «конкурентном авторитаризме», а не о фашизме — система деградирует, но не разрушена.</p>
+      <p><strong>Главное сходство с Россией:</strong> антимигрантская мобилизация как центральный инструмент. ICE получил <span class="fact">$170 млрд</span> нового финансирования, число задержанных выросло на 75% за год (рекорд), создаются палаточные лагеря, мигрантов депортируют в третьи страны. Оба режима используют «чужого» как системообразующую фигуру.</p>
+    </div>
+    <div class="source-note">
+      Источники: Umberto Eco «Ur-Fascism» (1995) · CIVICUS · Bright Line Watch · CFR · HRW · NPR · Time · Just Security · American Immigration Council · Vera Institute · Ballotpedia · Wikipedia<br>
+      Данные актуальны на апрель 2026 года
+    </div>
+  </div>
+</div>
+
+<!-- ========== GERMANY PANEL ========== -->
+<div class="panel" id="panel-germany">
+  <div class="country-panel">
+    <div class="panel-intro">
+      <div class="panel-intro-overline">Германия · 2025–2026</div>
+      <h2>14 признаков <span class="accent">Ur-Fascism</span><br>vs Германия</h2>
+      <div class="context-note">
+        <strong>Ключевое отличие от России и США.</strong> В Германии угроза фашистских тенденций идёт не от действующей власти, а по двум каналам одновременно: (1) AfD как открыто правоэкстремистская оппозиция (20,8% на выборах 2025, 152 места — рекорд для праворадикальной партии со времён Второй мировой); (2) правый дрейф мейнстрима — канцлер Мерц (CDU) сломал послевоенное табу, приняв поддержку AfD для антимиграционного голосования. CIVICUS понизил рейтинг Германии до «obstructed» (декабрь 2025). При этом BfV (аналог конституционной защиты) в мае 2025 классифицировал AfD как «подтверждённое правоэкстремистское движение».
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot full"></div> Выраженное совпадение</div>
+        <div class="legend-item"><div class="legend-dot partial"></div> Частичное совпадение</div>
+        <div class="legend-item"><div class="legend-dot weak"></div> Слабое / неоднозначное</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num red">2</div><div class="stat-label">Выраженных</div></div>
+        <div class="stat"><div class="stat-num orange">6</div><div class="stat-label">Частичных</div></div>
+        <div class="stat"><div class="stat-num green">6</div><div class="stat-label">Слабых</div></div>
+      </div>
+    </div>
+    <div id="cards-germany"></div>
+    <div class="summary-box">
+      <h2>Выводы</h2>
+      <p>Германия — <strong>2 выраженных, 6 частичных, 6 слабых</strong> — наименее «фашизированная» из трёх стран в этом сравнении. Но тренд тревожный.</p>
+      <p><strong>Главная опасность — нормализация.</strong> Исследование «Die Mitte» (2025) показало, что каждый пятый немец из «демократического центра» уже не полностью отвергает правоэкстремистские установки. Доля тех, кто считает AfD «партией как любая другая», выросла до 30%. Недоверие к выборам утроилось — с 5,8% (2020) до 18,2% (2025).</p>
+      <p><strong>Два канала угрозы:</strong> AfD несёт классические черты Эко (#1, #5, #6, #7, #12, #13, #14), но не у власти. Правительство Мерца (#4, #5) начинает перенимать миграционную риторику AfD и давить на гражданское общество — что размывает «файрвол» между мейнстримом и экстремизмом.</p>
+      <p><strong>Противовесы:</strong> сильные суды (суд заблокировал депортации сомалийцев), конституционная защита (BfV мониторит AfD), масштабные протесты (200 000+ в Берлине), свободная пресса, закреплённые в Конституции климатические цели. Германия — пока — сопротивляется.</p>
+    </div>
+    <div class="source-note">
+      Источники: Umberto Eco «Ur-Fascism» (1995) · CIVICUS · HRW World Report 2026 · Die Mitte Study 2025 · ECPS · BfV · Al Jazeera · CNN · Carnegie Endowment · Wikipedia<br>
+      Данные актуальны на апрель 2026 года
+    </div>
+  </div>
+</div>
+
+<script>
+/* ========== DATA ========== */
+const signNames = [
+  { num: 1, title: "Культ традиции", sub: "The Cult of Tradition" },
+  { num: 2, title: "Отвержение модернизма", sub: "The Rejection of Modernism" },
+  { num: 3, title: "Культ действия ради действия", sub: "The Cult of Action for Action's Sake" },
+  { num: 4, title: "Несогласие = предательство", sub: "Disagreement Is Treason" },
+  { num: 5, title: "Страх перед различием", sub: "Fear of Difference" },
+  { num: 6, title: "Апелляция к социальной фрустрации", sub: "Appeal to Social Frustration" },
+  { num: 7, title: "Одержимость заговором", sub: "The Obsession with a Plot" },
+  { num: 8, title: "Враг силён и слаб одновременно", sub: "The Enemy Is Both Strong and Weak" },
+  { num: 9, title: "Жизнь ради борьбы", sub: "Life Is Lived for Struggle" },
+  { num: 10, title: "Презрение к слабым", sub: "Contempt for the Weak" },
+  { num: 11, title: "Воспитание героизмом", sub: "Everybody Is Educated to Become a Hero" },
+  { num: 12, title: "Мачизм и презрение к нестандартности", sub: "Machismo and Weaponry" },
+  { num: 13, title: "Селективный популизм", sub: "Selective Populism" },
+  { num: 14, title: "Новояз", sub: "Ur-Fascism Speaks Newspeak" }
+];
+
+const russiaData = [
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Истина уже была провозглашена раз и навсегда. Задача — лишь заново её интерпретировать. Не может быть развития знания — только толкование «сокровенного послания».",
+    text: "Концепция «Русского мира» и «тысячелетней русской государственности». Путин регулярно цитирует философа <span class='fact'>Ивана Ильина</span>, открыто поддерживавшего фашизм. Новые учебники истории (с 2023) выстраивают непрерывную линию от Древней Руси к «СВО» как к исторической неизбежности. Традиционные ценности закреплены в Конституции (поправки 2020)." },
+  { match: "weak", matchLabel: "Слабое", eco: "Эпоха Просвещения — начало упадка. Ур-фашизм иррационален.", text: "" },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Действие прекрасно само по себе и должно совершаться без предварительного размышления. Думать — значит оскоплять себя. Критическое мышление — враг.",
+    text: "Вторжение в Украину подавалось как «решительный ответ» без общественной дискуссии. Любое обсуждение альтернатив — «предательство». В школах: <span class='fact'>около 12% учебных часов</span> (2024–2025) посвящены темам войны и «патриотизма». «Зарница 2.0» в 2025 году охватила <span class='fact'>3 млн школьников</span> — дети играют в операторов дронов и штурмовиков." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Критический дух проводит различения, а различать — это признак модернизма. Для ур-фашизма несогласие есть измена.",
+    text: "Законы о «дискредитации армии» и «фейках» (2022). <span class='fact'>Более 350 несовершеннолетних</span> осуждены по статьям о терроризме и экстремизме. 17-летний Егор Балажейкин получил 6 лет за коктейль Молотова в военкомат. Частный колледж в Новосибирске оштрафован и закрыт за отказ вести «Разговоры о важном». Немцов убит, Навальный погиб в заключении." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Первый призыв фашистского движения — против чужаков. Ур-фашизм расистский по определению.",
+    text: "Закон о «пропаганде нетрадиционных сексуальных отношений» (расширен в 2023). Риторика «денацификации» Украины. Понятие «иноагент» как маркер чужого. Дискурс о «коллективном Западе» как экзистенциальной угрозе. Отрицание украинской идентичности (Путин: «Украина — часть России»). Депортация <span class='fact'>19 600+ украинских детей</span> с оккупированных территорий." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Типичная черта — обращение к фрустрированному среднему классу, страдающему от экономического кризиса, политического унижения и давления низших классов.",
+    text: "Нарратив о «лихих 90-х» и «унижении после распада СССР» — центральная мифология путинизма. Риторика «вставания с колен». Контрактная армия вербует преимущественно в бедных регионах — Дагестан, Бурятия, Тува. <span class='fact'>Юнармия</span> для бедных семей — доступ к лагерям, форме, привилегиям." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Последователи должны чувствовать себя в осаде. Самый простой способ — ксенофобия. Но заговор должен исходить и изнутри.",
+    text: "Стратегия национальной безопасности (2023) называет <span class='fact'>США «главным зачинщиком агрессивной антироссийской политики коллективного Запада»</span>. Нарратив о «биолабораториях» в Украине, «НАТО у границ», внутренних «предателях» и «пятой колонне». Законы об «иноагентах» и «нежелательных организациях». Школьные учебники транслируют эту картину мира." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Последователи должны быть унижены силой врага, но при этом убеждены, что могут его одолеть. Риторический фокус непрерывно смещается.",
+    text: "Украина одновременно «марионетка НАТО» (сильный враг) и «наркоманы-нацисты» (слабый). Запад «загнивает» и «рушится», но при этом ведёт «гибридную войну» и «угрожает существованию России». «СВО завершится победой», но при этом нужна частичная мобилизация и рекордный военный бюджет." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Пацифизм — это сотрудничество с врагом. Жизнь есть перманентная война. Должен наступить Армагеддон, после которого мир будет очищен.",
+    text: "Паттерн тотальной мобилизации. Бюджет на «патриотическое воспитание» вырос с <span class='fact'>5 млрд руб. (2022) до 66 млрд руб. (2025)</span> — рост в 13 раз. Рекордный военный бюджет (40%+ расходов). Риторика «цивилизационного противостояния», бесконечная война как новая нормальность. Секретарь Совбеза Патрушев: «давление Запада продолжится даже после горячей фазы»." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "Элитизм — фундаментальная черта любой реакционной идеологии. Ур-фашизм проповедует массовый элитизм: каждый гражданин принадлежит к лучшему народу мира.",
+    text: "Элитизм выражен не классически, а как «цивилизационное превосходство»: Россия — «отдельная цивилизация», «духовные скрепы» выше «западного вырождения». Но при этом режим не презирает слабых напрямую — он патерналистски о них «заботится». Слабы те, кто «предал» — уехавшие, несогласные." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Героизм — это норма. Герой нетерпеливо ищет героическую смерть как лучшую награду, и в этом нетерпении с готовностью посылает других на гибель.",
+    text: "«Парты героев» в школах, визиты «участников СВО» к детям, конкурсы рисунков о войне. Юнармия: <span class='fact'>1,8 млн членов, 120 000 выпускников</span> — в армии и силовых структурах. Глава Юнармии сообщил о «12 000 участников СВО» из числа членов организации. Дети в Карелии обязаны рисовать генерала Никифорова как «отца-освободителя». Контракт с армией можно подписать сразу после школы." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Перенос воли к власти на сексуальность: презрение к женщинам, нетерпимость к нестандартным сексуальным практикам, фаллическое замещение — игры с оружием.",
+    text: "Закон о «пропаганде ЛГБТ» (2023). Декриминализация домашнего насилия (2017). Культ «настоящего мужика» — военного, охотника, бойца. Дети в школах <span class='fact'>учатся стрелять, обращаться с оружием, управлять дронами</span>. Девочки в Юнармии получают роли медсестёр и радисток. Тема оружия пронизывает образовательную систему и детские площадки (карусели-танки, горки-самолёты)." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "«Голос Народа» — не демократическое волеизъявление, а эмоциональная реакция отобранной группы. ТВ-популизм, в котором мнение избранных подаётся как всеобщее.",
+    text: "Выборы формально проводятся, но без реальной конкуренции. Путин = «национальный лидер», единственный легитимный интерпретатор воли народа. Парламент назван «не местом для дискуссий» (Грызлов). ТВ-пропаганда конструирует «голос народа» через ток-шоу. Однако режим не отвергает само понятие демократии — он его имитирует." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Обеднённый словарь и элементарный синтаксис — чтобы ограничить инструменты сложного и критического мышления.",
+    text: "«Специальная военная операция» вместо «война». «Денацификация», «демилитаризация», «отрицательное продвижение», «хлопок» вместо «взрыв», «жест доброй воли» вместо «отступление». Запрет слова «война» закреплён законодательно. Символ «Z» как сакральный знак. В школьных учебниках: <span class='fact'>предписано «избегать негативного уклона и очернительства»</span> при обсуждении истории." }
+];
+
+const usaData = [
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Истина уже была провозглашена раз и навсегда. Нет развития знания — только толкование «сокровенного послания».",
+    text: "<span class='fact'>«Make America Great Again»</span> — центральный лозунг с 2016 года, воскрешённый в 2024. Апелляция к мифическому «золотому веку» Америки. Пентагон в январе 2025 использовал название <span class='fact'>«Department of War»</span> — отсылку к эпохе до 1947 года. Указ о «восстановлении традиционных ценностей» в школах. Национальные молитвенные мероприятия возвращены в 2025. Project 2025 — детализированный план «реставрации» консервативной Америки." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "Эпоха Просвещения, Век Разума — начало современного упадка. Ур-фашизм иррационален по определению.",
+    text: "Указы против DEI (Diversity, Equity, Inclusion) в госструктурах и университетах. Указ <span class='fact'>«Ending Radical Indoctrination in K-12 Schooling»</span> (январь 2025). Атаки на «гендерную идеологию», CRT (Critical Race Theory). Но: США остаётся технологической державой, Трамп продвигает AI и крипто. Отвержение не всеобъемлющее — оно нацелено на «культурный модернизм», а не на технологический." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Действие прекрасно само по себе. Думать — значит оскоплять себя.",
+    text: "<span class='fact'>254 указа за 14 месяцев</span> (на апрель 2026) — беспрецедентный темп. Многие указы подписаны без экспертизы и немедленно заблокированы судами. Стивен Миллер: «мы действуем — пусть суды нас останавливают». DOGE (Илон Маск) — уничтожение госагентств без анализа последствий. Рейды ICE проводятся масштабно и показательно — <span class='fact'>69 000 задержанных</span> к январю 2026, рекорд." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Критический дух проводит различения. Для ур-фашизма несогласие есть измена.",
+    text: "Указы о лишении допуска юридических фирм, представляющих оппонентов Трампа. <span class='fact'>ФБР провело обыск дома журналистки Washington Post</span> (январь 2026). Иск к NYT на $15 млрд за «вредоносные» статьи. Глава FCC угрожал ABC из-за слов Джимми Киммела. Конгресс урезал <span class='fact'>$1,1 млрд финансирования</span> общественных медиа (NPR/PBS). Меморандум об «антифа» как внутренней террористической угрозе — преследование за убеждения, а не за действия. Учёные боятся говорить на запись, опасаясь урезания грантов." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Первый призыв фашистского движения — против чужаков.",
+    text: "<b>Антимигрантская мобилизация:</b> <span class='fact'>$170 млрд</span> на enforcement через One Big Beautiful Bill Act (июль 2025). Число задержанных ICE выросло на <span class='fact'>75% за 2025 год</span> до рекордных 73 000. Палаточные лагеря. Депортации в третьи страны (Руанда, Эсватини). Убийство двух граждан США агентами ICE в Миннеаполисе (январь 2026). Квота на <span class='fact'>3 000 арестов в день</span>. Аресты людей без судимостей выросли в 7 раз. <br><br><b>Другие измерения:</b> Указ об отмене признания трансгендерных людей на федеральном уровне. Закон против «гендерной идеологии» в школах. Приоритет при приёме беженцев — <span class='fact'>белые южноафриканцы</span>. Попытка отмены birthright citizenship." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Обращение к фрустрированному среднему классу, страдающему от экономического кризиса и политического унижения.",
+    text: "Электоральная база Трампа — <span class='fact'>белый рабочий класс</span> из деиндустриализированных регионов (Rust Belt, сельский Юг). Нарратив: «элиты вас предали, Вашингтон забыл о вас, мигранты украли ваши рабочие места». Тарифная война 2025 — подана как защита рабочих мест (при росте цен для потребителей). «Forgotten men and women» — центральный образ кампании." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Последователи должны чувствовать себя в осаде. Заговор исходит и извне, и изнутри.",
+    text: "«Deep State» — центральный нарратив. Указ <span class='fact'>«Ending the Weaponization of the Federal Government»</span> (день 1). Теории о «вмешательстве» в выборы 2020. QAnon. Нарратив о «вторжении» мигрантов через южную границу. «Враги внутри» — СМИ, университеты, НКО. DOGE получил доступ к <span class='fact'>данным IRS, Social Security, иммиграционных дел</span> для поиска «нелегалов» и «расточителей»." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "Враг унижает своей силой, но при этом его можно одолеть.",
+    text: "Мигранты одновременно «крадут рабочие места» (сильные) и «паразиты на пособиях» (слабые). Китай — одновременно «угроза экономике» и «рушащаяся система». СМИ — «всесильная машина пропаганды» и «failing media» / «ratings disaster». Но: дискурс менее систематичен, чем в России — противоречия скорее хаотичны, чем стратегически выстроены." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "Пацифизм — сотрудничество с врагом. Жизнь есть перманентная война.",
+    text: "Риторика «войны»: война с мигрантами, война с наркотиками (фентанил = «оружие массового поражения», указ декабря 2025), война с Deep State. Милитаризация границы: <span class='fact'>10 000 военнослужащих</span> развёрнуты на границе. Но: нет реальной горячей войны. Трамп позиционируется как «миротворец» (Украина, Ближний Восток). Перманентная мобилизация — внутренняя, не внешняя." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "Массовый элитизм: каждый гражданин принадлежит к лучшему народу мира.",
+    text: "Указ <span class='fact'>«Ending Crime and Disorder on America's Streets»</span> — криминализует бездомность, санкционирует принудительную госпитализацию. Трамп высмеивал журналиста с инвалидностью (2015, повторяется в медиа). Макизм: «сила = правота». Но: это скорее презрение к «проигравшим», чем систематическая идеология элитизма." },
+  { match: "weak", matchLabel: "Слабое",
+    eco: "Героизм — норма. Герой нетерпеливо ищет героическую смерть.",
+    text: "Культ ветеранов и военных существует, но не направлен на массовую мобилизацию. Нет аналога «Юнармии». Указы о «восстановлении боеспособности армии» — скорее институциональная реформа, чем культ героической смерти. Риторика «каждый американец — воин в битве за страну» звучала на митингах, но без институциональной поддержки в школах." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Перенос воли к власти на сексуальность. Презрение к женщинам, нетерпимость к нестандартным практикам. Фаллическое замещение — игры с оружием.",
+    text: "Указ <span class='fact'>«Defending Women From Gender Ideology Extremism»</span> — отменяет федеральное признание трансгендерных людей. Указ <span class='fact'>«Protecting Children From Chemical And Surgical Mutilation»</span>. Культура оружия — NRA как политическая сила. Образ Трампа как «альфа-самца», помилование участников 6 января как «патриотов». Предвыборная реклама: оружие и агрессия как знаки лидерства." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "«Голос Народа» — эмоциональная реакция отобранной группы, поданная как всеобщая.",
+    text: "<span class='fact'>«Real Americans»</span> — конструкция, в которую входят белые, сельские, христианские избиратели. Города, университеты, побережья — «ненастоящая Америка». Трамп: «Я — ваш голос, ваше возмездие». Meme-coins и ужины с крупнейшими покупателями — <span class='fact'>pay-to-play</span> как прямой механизм доступа к президенту. Лозунги заменяют политику: «Build the Wall», «Drill Baby Drill», «America First»." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "Обеднённый словарь и элементарный синтаксис — чтобы ограничить сложное мышление.",
+    text: "«Fake news», «enemy of the people», «witch hunt», «hoax» — повторяемый набор ярлыков, обесценивающих критику. <span class='fact'>«Alien» вместо «immigrant»</span> в официальных документах. «Invasion» — для описания миграции. Но: американское медиапространство всё ещё многоголосо. Упрощение идёт от президента и его сторонников, но не контролирует весь дискурс — в отличие от России, где альтернативные источники подавлены." },
+  { match: "weak", matchLabel: "Слабое",
+    eco: "Героизм — норма. Герой нетерпеливо ищет героическую смерть.",
+    text: "" }
+];
+
+const germanyData = [
+  { match: "partial", matchLabel: "Частичное",
+    eco: "Истина провозглашена раз и навсегда. Нет развития знания — только толкование.",
+    text: "<b>AfD:</b> Вайдель назвала культуру памяти о Холокосте <span class='fact'>«культом стыда» (Schuldkult)</span>. Хёке использовал нацистскую фразу «Alles für Deutschland» (штраф за это). Илон Маск на митинге AfD призывал Германию «покончить с чувством вины». Партия требует «позитивного отношения к немецкой истории».<br><br><b>Правительство:</b> Мерц позиционируется как наследник «стабильной Германии» Меркель, но без открытого культа традиции. Климатические цели закреплены в Конституции (нейтральность к 2045)." },
+  { match: "weak", matchLabel: "Слабое",
+    eco: "Эпоха Просвещения — начало упадка. Ур-фашизм иррационален.",
+    text: "<b>AfD:</b> Отрицает антропогенное изменение климата. Выступает против Energiewende и зелёной повестки. Но это скорее экономический консерватизм, чем иррационализм.<br><br><b>Правительство:</b> Германия — технологическая и научная держава. Мерц поддерживает AI, промышленную модернизацию. Признак минимален на государственном уровне." },
+  { match: "weak", matchLabel: "Слабое",
+    eco: "Действие прекрасно само по себе. Думать — значит оскоплять себя.",
+    text: "Германия — страна бюрократии, экспертизы и процедур. Законодательство проходит длительное обсуждение. AfD критикует «медлительность» системы, но не контролирует процесс. Мерц действует быстрее обычного (антимиграционные голосования), но это не системный культ действия." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "Критический дух проводит различения. Для ур-фашизма несогласие — измена.",
+    text: "<b>Правительство:</b> CDU/CSU после выборов направила <span class='fact'>551 парламентский запрос</span> о 14 НКО, подвергая сомнению их «политическую нейтральность» — это организации, протестовавшие против сотрудничества с AfD. Криминализация климатического активизма (дела против Last Generation). <br><br><b>Протесты:</b> Полиция использовала <span class='fact'>собак без намордников</span> против мирных протестующих у съезда AfD, парламентарий от Левых потерял сознание от удара. CIVICUS зафиксировал жёсткое подавление пропалестинских протестов — запрет арабского языка на демонстрациях." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Первый призыв фашистского движения — против чужаков.",
+    text: "<b>Центральная тема политики.</b> AfD строит программу на <span class='fact'>«ремиграции»</span> — массовой принудительной высылке мигрантов. Мерц (CDU) сломал послевоенный «файрвол», приняв голоса AfD для антимиграционного законопроекта, и заявил: <span class='fact'>«Дверь в ад мы ещё можем закрыть вместе»</span>. Ненависть к мигрантам подстёгнута терактами (Ашаффенбург — январь 2025, Магдебург — декабрь 2024). Преступления на почве ненависти к ЛГБТ выросли: <span class='fact'>+18% по сексуальной ориентации, +35% по гендерной идентичности</span> (2024 vs 2023). 200 000+ вышли на протесты в Берлине против ужесточения миграционной политики." },
+  { match: "full", matchLabel: "Выраженное",
+    eco: "Обращение к фрустрированному среднему классу.",
+    text: "<b>Восток Германии</b> — главная база AfD. Десятилетия после объединения: ощущение «гражданства второго сорта», экономическое отставание, утрата идентичности. AfD мобилизовала <span class='fact'>1,8 млн бывших неголосующих</span> на выборах 2025. Молодые мужчины — ключевая демографическая группа поддержки. Экономический спад 2024–2025, энергетический кризис после войны в Украине, рост цен — всё питает фрустрацию. Общее недоверие к демократическим институтам выросло с <span class='fact'>14,3% до 21,5%</span> (2020–2025)." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "Последователи должны чувствовать себя в осаде. Заговор — извне и изнутри.",
+    text: "<b>AfD:</b> Нарратив о «великой замене» (Großer Austausch). Конспирология вокруг климатической политики как «заговора элит». Рамки Querdenker-движения (антиковидные протесты) → антисистемная мобилизация. Связи с российскими пропагандистскими каналами.<br><br><b>Правительство:</b> Не продвигает конспирологию. BfV активно мониторит радикализацию. Но правительство не всегда эффективно противостоит дезинформации." },
+  { match: "weak", matchLabel: "Слабое",
+    eco: "Враг унижает силой, но его можно одолеть.",
+    text: "AfD использует этот приём спорадически: мигранты одновременно «крадут работу» и «живут на пособия». Но на государственном уровне этот дискурс не присутствует. Мерц не демонизирует конкретного врага в стиле Путина или Трампа." },
+  { match: "weak", matchLabel: "Слабое",
+    eco: "Пацифизм — сотрудничество с врагом. Жизнь — перманентная война.",
+    text: "Германия увеличила военный бюджет (Sondervermögen €100 млрд), но это реакция на войну в Украине, а не идеологический милитаризм. AfD, парадоксально, скорее пацифистская по отношению к Украине (за переговоры с Россией). Общество не мобилизовано на «перманентную борьбу»." },
+  { match: "weak", matchLabel: "Слабое",
+    eco: "Массовый элитизм. Каждый принадлежит к лучшему народу.",
+    text: "AfD апеллирует к «немецкой идентичности» и культурному превосходству, но это не системная государственная политика. Социальное государство (Sozialstaat) остаётся одним из самых развитых в мире. Слабые защищены институционально." },
+  { match: "weak", matchLabel: "Слабое",
+    eco: "Героизм — норма. Герой нетерпеливо ищет героическую смерть.",
+    text: "Отсутствует. Немецкая образовательная система построена на критическом осмыслении нацистского прошлого. Нет аналога «Юнармии» или милитаризации школ. AfD хочет пересмотреть культуру памяти, но не имеет доступа к школьной системе." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "Перенос воли к власти на сексуальность. Нетерпимость.",
+    text: "<b>AfD:</b> Выступает против закона о самоопределении гендера (Selbstbestimmungsgesetz, 2024). Партия последовательно антитранс и анти-ЛГБТ. Преступления на почве ненависти к ЛГБТ растут. МВД предложило реестр, фиксирующий прежние данные трансгендерных людей до смены документов.<br><br><b>Правительство:</b> Приняло закон о самоопределении гендера. Однако усиление давления на ЛГБТ идёт снизу, через ультраправые движения." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "«Голос Народа» — эмоция отобранной группы, поданная как всеобщая.",
+    text: "<b>AfD:</b> «Unser Land, unsere Regeln» («Наша страна, наши правила»). Апелляция к «настоящим немцам» vs. «элиты» и «чужаки». Querdenker — «голос народа» против «диктатуры карантина». AfD позиционирует себя как единственную партию, представляющую «обычных людей».<br><br><b>Правительство:</b> Коалиция CDU/SPD работает через парламентские процедуры, не через прямую апелляцию к «народу»." },
+  { match: "partial", matchLabel: "Частичное",
+    eco: "Обеднённый словарь, чтобы ограничить сложное мышление.",
+    text: "<b>AfD:</b> «Remigration» как эвфемизм массовой депортации. «Altparteien» (старые партии) — обесценивание демократических партий. «Lügenpresse» (лживая пресса) — калька с нацистского лексикона. «Überfremdung» (засилье чужаков).<br><br><b>Правительство:</b> Мерц: «die Tür zur Hölle» (дверь в ад) — о миграции. Но в целом немецкий политический язык остаётся сложным, экспертным, процедурным." }
+];
+
+/* ========== RENDER HEATMAP ========== */
+const heatmapMatches = {
+  russia:  ['full','weak','full','full','full','full','full','full','full','partial','full','full','partial','full'],
+  usa:     ['full','partial','full','full','full','full','full','partial','partial','partial','weak','full','full','partial'],
+  germany: ['partial','weak','weak','partial','full','full','partial','weak','weak','weak','weak','partial','partial','partial']
+};
+
+const heatmapEl = document.getElementById('heatmap');
+let heatmapHTML = `<div class="heatmap-header"><span>Признак</span><span style="color:var(--ru)">Россия</span><span style="color:var(--us)">США</span><span style="color:var(--de)">Германия</span></div>`;
+
+signNames.forEach((sign, i) => {
+  heatmapHTML += `<div class="heatmap-row">
+    <div class="heatmap-label">${sign.title}<small>${sign.sub}</small></div>
+    <div class="heatmap-cell"><span class="heatmap-dot ${heatmapMatches.russia[i]}"></span></div>
+    <div class="heatmap-cell"><span class="heatmap-dot ${heatmapMatches.usa[i]}"></span></div>
+    <div class="heatmap-cell"><span class="heatmap-dot ${heatmapMatches.germany[i]}"></span></div>
+  </div>`;
+});
+heatmapEl.innerHTML = heatmapHTML;
+
+/* ========== RENDER COUNTRY CARDS ========== */
+function renderCards(containerId, dataset, countryLabel) {
+  const container = document.getElementById(containerId);
+  dataset.forEach((item, i) => {
+    if (!item.text && !item.eco) return;
+    const sign = signNames[i];
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="card-num">${sign.num}</div>
+        <div class="card-title">${sign.title}<small>${sign.sub}</small></div>
+        <span class="match-badge match-${item.match}">${item.matchLabel}</span>
+        <span class="card-chevron">&#x276F;</span>
+      </div>
+      <div class="card-body">
+        <div class="comparison-grid">
+          <div class="comp-col eco"><div class="comp-label">Эко: определение признака</div>${item.eco || ''}</div>
+          <div class="comp-col country"><div class="comp-label">${countryLabel}: факты</div>${item.text || ''}</div>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+    if (i === 0) setTimeout(() => card.classList.add('open'), 300);
+  });
+}
+
+renderCards('cards-russia', russiaData, 'Россия 2022–2026');
+renderCards('cards-usa', usaData, 'США 2025–2026');
+renderCards('cards-germany', germanyData, 'Германия 2025–2026');
+
+/* ========== TAB SWITCHING ========== */
+const accentMap = {
+  overview: { accent: 'var(--text)', soft: 'transparent', glow: 'transparent' },
+  russia:   { accent: 'var(--ru)', soft: 'var(--ru-soft)', glow: 'var(--ru-glow)' },
+  usa:      { accent: 'var(--us)', soft: 'var(--us-soft)', glow: 'var(--us-glow)' },
+  germany:  { accent: 'var(--de)', soft: 'var(--de-soft)', glow: 'var(--de-glow)' }
+};
+
+function switchTab(tabName) {
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.nav-tab[data-tab="${tabName}"]`).classList.add('active');
+
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tabName).classList.add('active');
+
+  const a = accentMap[tabName];
+  const root = document.documentElement;
+  root.style.setProperty('--accent', a.accent);
+  root.style.setProperty('--accent-soft', a.soft);
+  root.style.setProperty('--accent-glow', a.glow);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+});
+
+/* Handle hash navigation */
+const hash = window.location.hash.replace('#', '');
+if (['russia', 'usa', 'germany'].includes(hash)) {
+  switchTab(hash);
+}
+</script>
+</body>
+</html>
